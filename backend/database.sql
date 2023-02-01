@@ -17,4 +17,4 @@ CREATE TABLE
 
 ALTER TABLE `score`
 ADD
-    CONSTRAINT `id_user_score` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+    CONSTRAINT `id_user_score` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE
