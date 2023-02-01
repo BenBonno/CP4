@@ -11,7 +11,7 @@ function Form() {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
     setUser(data);
-    setUserReady(true)
+    setUserReady(true);
     axios
       .post("http://localhost:5100/user", data)
       .then((res) => {
