@@ -1,6 +1,20 @@
-CREATE TABLE item (
-  id int(11) UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  title varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE
+    `score` (
+        `id` int NOT NULL AUTO_INCREMENT,
+        `id_user` int NOT NULL,
+        `score` int NULL,
+        PRIMARY KEY (`id`)
+    );
 
-INSERT INTO item (title) VALUES ('Stuff'), ('Doodads');
+CREATE TABLE
+    `user` (
+        `id` int NOT NULL AUTO_INCREMENT,
+        `username` varchar(25) NOT NULL,
+        `password` varchar(25) NOT NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE INDEX `userName`(`username`)
+    );
+
+ALTER TABLE `score`
+ADD
+    CONSTRAINT `id_user_score` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);

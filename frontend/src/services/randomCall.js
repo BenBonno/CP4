@@ -6,4 +6,4 @@ const randomCall = () => {
   });
 };
 
-export default randomCall; // module
+export default randomCall;
