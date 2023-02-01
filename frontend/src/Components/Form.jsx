@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 
 function Form() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
   const [userReady, setUserReady] = useState(false);
 
   const handleSubmit = (e) => {
@@ -11,11 +11,11 @@ function Form() {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
     setUser(data);
+    setUserReady(true)
     axios
       .post("http://localhost:5100/user", data)
       .then((res) => {
         console.warn(res);
-        setUserReady(true);
       })
       .catch((err) => {
         console.error(err);
