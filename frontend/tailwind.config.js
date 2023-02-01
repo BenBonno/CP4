@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 module.exports = {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {
@@ -11,6 +12,5 @@ module.exports = {
     // ...
     require("@tailwindcss/forms"),
     require("@tailwindcss/aspect-ratio"),
-    require("@tailwindcss/forms"),
   ],
 };
