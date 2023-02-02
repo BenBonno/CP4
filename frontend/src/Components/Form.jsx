@@ -28,7 +28,7 @@ function Form() {
   return (
     <div>
       <div className="bg-red-200 flex flex-col gap-4 justify-center">
-        {!userReady && !user ? (
+        {!userReady ? (
           <form className="flex flex-col" onSubmit={handleSubmit}>
             <label className="bg-red-500 flex items-center" htmlFor="username">
               Nom d'utilisateur
