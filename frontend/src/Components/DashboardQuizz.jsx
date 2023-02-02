@@ -12,7 +12,7 @@ export default function Dashboard({ src, random }) {
       .replace(".svg", "")
       .substr(-2)
       .toLowerCase();
-    console.log(e.target.dataset.twolettercode.toLowerCase(), urlWithoutSvg);
+    // console.log(e.target.dataset.twolettercode.toLowerCase(), urlWithoutSvg);
     if (urlWithoutSvg === e.target.dataset.twolettercode.toLowerCase()) {
       setCount(count + 1);
       randomCall().then((res) => {
@@ -41,7 +41,7 @@ export default function Dashboard({ src, random }) {
         <div className="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
           <div className="relative">
             <img
-              className="absolute h-16 top-[40%] right-[5%]  md:h-28 md:right[6%] md:top-[44%] lg:h-36 lg:right-[3%] lg:top-[42%] xl:h-48 xl:right-[8%] xl:top-[44%]  border-4 border "
+              className="absolute h-16 top-[40%] right-[5%]  md:h-28 md:right[6%] md:top-[44%] lg:h-36 lg:right-[3%] lg:top-[42%] xl:h-48 xl:right-[8%] xl:top-[44%]  border-4  "
               src={randomFlag?.url}
               alt="backgroundImage"
             />
