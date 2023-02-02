@@ -1,9 +1,12 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import Dashboard from "./Dashboard";
+import { AuthContext } from "../services/AuthContext";
 
 function Form() {
-  const [user, setUser] = useState(false);
-  const [userReady, setUserReady] = useState(false);
+  const [, setOpen] = useContext(AuthContext).modal; // TODO: check magical line
+  const [user, setUser] = useContext(AuthContext).user;
+  const [userReady, setUserReady] = useContext(AuthContext).userReady;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,6 +17,7 @@ function Form() {
       .then((response) => {
         if (response.data === "Wrong password") {
           console.error("Wrong password");
+          setOpen(true);
           return;
         }
         setUser(response.data);
@@ -26,26 +30,75 @@ function Form() {
   console.warn("user", user);
 
   return (
-    <div>
-      <div className="bg-red-200 flex flex-col gap-4 justify-center">
-        {!userReady ? (
-          <form className="flex flex-col" onSubmit={handleSubmit}>
-            <label className="bg-red-500 flex items-center" htmlFor="username">
-              Nom d'utilisateur
-            </label>
-            <input type="text" id="username" name="username" required />
-            <label className="bg-red-500 flex items-center" htmlFor="password">
-              Mot de passe
-            </label>
-            <input type="password" id="password" name="password" required />
-            <button className="bg-red-500" type="submit">
-              Hit me baby one more time
-            </button>
-          </form>
-        ) : (
-          <p>Vous êtes connecté</p>
-        )}
-      </div>
+    <div className="flex justify-center w-full ">
+      {!userReady ? (
+        <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+          <div className="sm:mx-auto sm:w-full sm:max-w-md">
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+              Connect before having fun with flaaaaags
+            </h2>
+          </div>
+
+          <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+            <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+              <form
+                className="space-y-6"
+                action="submit"
+                onSubmit={handleSubmit}
+                method="POST"
+              >
+                <div>
+                  <label
+                    htmlFor="username"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Username
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="username"
+                      name="username"
+                      type="text"
+                      required
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Password
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      autoComplete="current-password"
+                      required
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <button
+                    type="submit"
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Hit me baby one more time
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <Dashboard src="bgSheldon.webp" />
+      )}
     </div>
   );
 }
