@@ -14,14 +14,19 @@ const randomCountry = () => {
 };
 
 const getRandomFlag = (req, res) => {
-  const randomGroup = [];
-  const randomCountry1 = randomCountry();
-  const randomCountry2 = randomCountry();
-  const randomCountry3 = randomCountry();
+  const randomGroup = [randomCountry(), randomCountry(), randomCountry()];
+  // const randomCountry1 = randomCountry();
+  // const randomCountry2 = randomCountry();
+  // const randomCountry3 = randomCountry();
 
-  randomGroup.push(randomCountry1, randomCountry2, randomCountry3);
+  // randomGroup.push(randomCountry1, randomCountry2, randomCountry3);
   axios
-    .get(`https://restcountries.com/v3.1/alpha/${randomCountry1.twoLetterCode}`)
+    .get(
+      `https://restcountries.com/v3.1/alpha/${
+        randomGroup[Math.floor(Math.random() * randomGroup.length)]
+          .twoLetterCode
+      }`
+    )
     .then((response) => {
       res.json({
         url: response.data[0].flags.svg,

@@ -4,18 +4,20 @@ import { AuthContext } from "../services/AuthContext";
 // eslint-disable-next-line react/prop-types
 export default function Dashboard({ src, random }) {
   const [user] = useContext(AuthContext).user;
-  const [randomFlag, , randomCall] = random;
+  const [randomFlag, setRandomFlag, randomCall] = random;
   const [count, setCount] = useState(0);
 
-  // console.log(randomFlag);
-
   const checkAnswer = (e) => {
-    const urlWithoutSvg = randomFlag.url.replace(".svg", "").substr(-2);
-    // console.log(e.target.dataset.twolettercode,urlWithoutSvg);
-    if (urlWithoutSvg === e.target.dataset.twolettercode) {
+    const urlWithoutSvg = randomFlag.url
+      .replace(".svg", "")
+      .substr(-2)
+      .toLowerCase();
+    console.log(e.target.dataset.twolettercode.toLowerCase(), urlWithoutSvg);
+    if (urlWithoutSvg === e.target.dataset.twolettercode.toLowerCase()) {
       setCount(count + 1);
-
-      randomCall();
+      randomCall().then((res) => {
+        setRandomFlag(res.data);
+      });
     }
     // console.log(
     //   "🚀 ~ file: DashboardQuizz.jsx:20 ~ checkAnswer ~ count",
