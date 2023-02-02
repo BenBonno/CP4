@@ -8,16 +8,19 @@ import Navbar from "./Components/Navbar";
 import Modal from "./Components/Modal";
 
 function App() {
-  const [open, setOpen] = useState(false);
   const [user, setUser] = useState(false);
   const [userReady, setUserReady] = useState(false);
-
+  const [dataModal, setDataModal] = useState({
+    title: "",
+    content: "",
+    icon: "",
+  });
   return (
     <AuthContextProvider
       value={{
-        modal: [open, setOpen],
         user: [user, setUser],
         userReady: [userReady, setUserReady],
+        dataModal: [dataModal, setDataModal],
       }}
     >
       <div className="App h-screen">

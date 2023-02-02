@@ -4,6 +4,7 @@ function Home() {
   return (
     <div className="flex flex-col ">
       <Form />
+      <p>Footer</p>
     </div>
   );
 }

@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import randomCall from "../services/randomCall";
-import Dashboard from "./Dashboard";
+import DashboardQuizz from "./DashboardQuizz";
 
 function Quizz() {
-  const [randomFlag, setRandomFlag] = useState("");
+  const [randomFlag, setRandomFlag] = useState();
 
   useEffect(() => {
     randomCall().then((result) => {
-      setRandomFlag(result.data);
-      console.warn("result.data", result.data);
+      const randomWithTrue = result.data;
+      randomWithTrue.randomGroup[0].correct = true;
+      randomWithTrue.randomGroup.sort(() => Math.random() - 0.5);
+      setRandomFlag(randomWithTrue);
     });
   }, []);
-
   return (
     <div>
-      <p>{randomFlag?.url}</p>
-      <Dashboard src="bgQuizz.webp" />
+      <DashboardQuizz
+        src="bgQuizz.webp"
+        random={[randomFlag, setRandomFlag, randomCall]}
+      />
     </div>
   );
 }

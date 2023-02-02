@@ -6,7 +6,11 @@ const arrayCountries = Object.values(countries);
 const randomCountry = () => {
   const random =
     arrayCountries[Math.floor(Math.random() * arrayCountries.length + 1)];
-  return { name: random.name, threeLetterCode: random.threeLetterCode };
+  return {
+    name: random.name,
+    threeLetterCode: random.threeLetterCode,
+    twoLetterCode: random.twoLetterCode,
+  };
 };
 
 const getRandomFlag = (req, res) => {
@@ -17,11 +21,11 @@ const getRandomFlag = (req, res) => {
 
   randomGroup.push(randomCountry1, randomCountry2, randomCountry3);
   axios
-    .get(`https://countryflagsapi.com/svg/${randomCountry1.threeLetterCode}`)
+    .get(`https://restcountries.com/v3.1/alpha/${randomCountry1.twoLetterCode}`)
     .then((response) => {
       res.json({
-        url: response.request.res.responseUrl,
-        randomGroup,
+        url: response.data[0].flags.svg,
+        randomGroup: randomGroup.map((country) => country),
       });
     })
     .catch((error) => {

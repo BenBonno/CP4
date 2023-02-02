@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useContext } from "react";
+import { ExclamationIcon } from "@heroicons/react/outline";
 import Dashboard from "./Dashboard";
 import { AuthContext } from "../services/AuthContext";
 
 function Form() {
-  const [, setOpen] = useContext(AuthContext).modal; // TODO: check magical line
+  // const [, setOpen] = useContext(AuthContext).modal; // TODO: check magical line
   const [user, setUser] = useContext(AuthContext).user;
   const [userReady, setUserReady] = useContext(AuthContext).userReady;
+  const [, setDataModal] = useContext(AuthContext).dataModal;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,7 +19,16 @@ function Form() {
       .then((response) => {
         if (response.data === "Wrong password") {
           console.error("Wrong password");
-          setOpen(true);
+          setDataModal({
+            title: "Wrong password",
+            content: "Please try again",
+            icon: (
+              <ExclamationIcon
+                className="h-6 w-6 text-red-600"
+                aria-hidden="true"
+              />
+            ),
+          });
           return;
         }
         setUser(response.data);
@@ -59,6 +70,7 @@ function Form() {
                       id="username"
                       name="username"
                       type="text"
+                      autoComplete="username"
                       required
                       className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
