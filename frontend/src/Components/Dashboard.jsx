@@ -12,7 +12,7 @@ export default function Dashboard({ src }) {
       <div className="bg-gray-800 pb-32">
         <header className="py-10 ">
           <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold text-gray-300">
+            <h1 className="text-3xl font-bold text-gray-300 font-['dk-john-brown']">
               Welcome {user.username},<br /> hope you will have fun with
               flaaaaags!
             </h1>

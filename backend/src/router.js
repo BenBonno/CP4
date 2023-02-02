@@ -13,7 +13,7 @@ router.get("/random", flagControllers.getRandomFlag);
 // CRUD User
 router.post("/user", middleware.verifyUser, userControllers.createUser);
 router.get("/users", userControllers.getAllUsers);
-router.put("/user", userControllers.updateUser);
+router.put("/user/:id", userControllers.updateUser);
 router.delete(
   "/user/:id",
   middleware.verifyPassword,

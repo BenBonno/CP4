@@ -15,7 +15,7 @@ export default function Navbar() {
                   <div className="flex space-x-4 ">
                     <Link
                       to="/"
-                      className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                      className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium font-['dk-john-brown']"
                     >
                       Dashboard
                     </Link>

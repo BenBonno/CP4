@@ -12,6 +12,7 @@ function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setUserReady(true);
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
     axios
@@ -22,30 +23,31 @@ function Form() {
           setDataModal({
             title: "Wrong password",
             content: "Please try again",
+            button: "Go back",
             icon: (
               <ExclamationIcon
                 className="h-6 w-6 text-red-600"
                 aria-hidden="true"
               />
             ),
+            callback: () => {},
           });
           return;
         }
         setUser(response.data);
-        setUserReady(true);
       })
       .catch((err) => {
         console.error("Mauvais mot de passe", err);
       });
   };
-  console.warn("user", user);
 
+  console.warn(user);
   return (
     <div className="flex justify-center w-full ">
-      {!userReady ? (
+      {!userReady || !user ? (
         <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 font-['dk-john-brown']">
               Connect before having fun with flaaaaags
             </h2>
           </div>
@@ -61,7 +63,7 @@ function Form() {
                 <div>
                   <label
                     htmlFor="username"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-gray-700 font-['dk-john-brown']"
                   >
                     Username
                   </label>
@@ -80,7 +82,7 @@ function Form() {
                 <div>
                   <label
                     htmlFor="password"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-gray-700 font-['dk-john-brown']"
                   >
                     Password
                   </label>
@@ -99,9 +101,10 @@ function Form() {
                 <div>
                   <button
                     type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="font-['dk-john-brown'] w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
-                    Hit me baby one more time
+                    Hit me baby <br />
+                    one more time
                   </button>
                 </div>
               </form>

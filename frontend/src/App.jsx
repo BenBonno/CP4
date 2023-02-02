@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { AuthContextProvider } from "./services/AuthContext";
-import Home from "./Components/Home";
+import Form from "./Components/Form";
 import Quizz from "./Components/Quizz";
 import Podium from "./Components/Podium";
 import Navbar from "./Components/Navbar";
@@ -14,6 +14,7 @@ function App() {
     title: "",
     content: "",
     icon: "",
+    callback: () => {},
   });
   return (
     <AuthContextProvider
@@ -23,11 +24,11 @@ function App() {
         dataModal: [dataModal, setDataModal],
       }}
     >
-      <div className="App h-screen">
+      <div className="App">
         <Navbar />
         <Modal />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Form />} />
           <Route path="/quizz" element={<Quizz />} />
           <Route path="/podium" element={<Podium />} />
         </Routes>
