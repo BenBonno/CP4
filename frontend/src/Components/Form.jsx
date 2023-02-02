@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Navigate } from "react-router-dom";
 
 function Form() {
   const [user, setUser] = useState(false);
