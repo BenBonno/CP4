@@ -8,7 +8,23 @@ const verifyPassword = (req, res, next) => {
     .then(([result]) => {
       const dbPassword = result[0].password;
       if (dbPassword !== password) {
-        res.send("Wrong Password").status(401);
+        res.send("Wrong password").status(401);
+      } else next();
+    })
+    .catch((err) => {
+      console.error("No user found", err);
+    });
+};
+
+const verifyUser = (req, res, next) => {
+  const { username } = req.body;
+  database
+    .query(`select * from user where username = ?`, [username])
+    .then(([result]) => {
+      if (result.length && result[0].password === req.body.password) {
+        res.send(result[0]).status(200);
+      } else if (result.length && result[0].password !== req.body.password) {
+        res.send("Wrong password").status(401);
       } else next();
     })
     .catch((err) => {
@@ -37,4 +53,4 @@ const checkScore = (req, res, next) => {
     });
 };
 
-module.exports = { verifyPassword, checkScore };
+module.exports = { verifyPassword, checkScore, verifyUser };

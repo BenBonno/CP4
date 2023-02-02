@@ -8,7 +8,7 @@ const createUser = (req, res) => {
       res.sendStatus(201);
     })
     .catch(() => {
-      res.send("Username déjà utilisé");
+      res.sendStatus("Username déjà utilisé");
     });
 };
 

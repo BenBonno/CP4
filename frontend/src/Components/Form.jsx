@@ -1,32 +1,35 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 function Form() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(false);
   const [userReady, setUserReady] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    // console.log(e.target.username.value, e.target.passwor.value);
-    const data = Object.fromEntries(formData); // ? pq log de formData vide
-    console.warn("data", data);
+    const data = Object.fromEntries(formData);
     axios
       .post("http://localhost:5100/user", data)
-      .then((res) => {
-        console.warn(res);
-        setUser(data);
+      .then((response) => {
+        if (response.data === "Wrong password") {
+          console.error("Wrong password");
+          return;
+        }
+        setUser(response.data);
         setUserReady(true);
       })
       .catch((err) => {
-        console.error(err);
+        console.error("Mauvais mot de passe", err);
       });
   };
+  console.warn("user", user);
 
   return (
     <div>
       <div className="bg-red-200 flex flex-col gap-4 justify-center">
-        {!userReady && user ? (
+        {!userReady && !user ? (
           <form className="flex flex-col" onSubmit={handleSubmit}>
             <label className="bg-red-500 flex items-center" htmlFor="username">
               Nom d'utilisateur

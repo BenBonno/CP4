@@ -11,7 +11,7 @@ const middleware = require("./services/middleware");
 router.get("/random", flagControllers.getRandomFlag);
 
 // CRUD User
-router.post("/user", userControllers.createUser);
+router.post("/user", middleware.verifyUser, userControllers.createUser);
 router.get("/users", userControllers.getAllUsers);
 router.put("/user", userControllers.updateUser);
 router.delete(
