@@ -41,6 +41,22 @@ function Form() {
       });
   };
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    console.warn("delete", data);
+
+    axios
+      .delete(`http://localhost:5100/user/${user.id}`)
+      .then((res) => {
+        console.warn(res);
+      })
+      .catch((err) => {
+        console.error("Error deleting yourself", err);
+      });
+  };
+
   console.warn(user);
   return (
     <div className="flex justify-center w-full ">
@@ -112,7 +128,21 @@ function Form() {
           </div>
         </div>
       ) : (
-        <Dashboard src="bgSheldon.webp" />
+        <div className="flex flex-col justify-center">
+          {" "}
+          <Dashboard src="bgSheldon.webp" />
+          <form className="flex justify-center gap-4" onSubmit={handleDelete}>
+            <input type="text" name="username" />
+            <input type="password" name="password" />
+
+            <button
+              type="submit"
+              className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            >
+              I'm done with this life
+            </button>
+          </form>
+        </div>
       )}
     </div>
   );

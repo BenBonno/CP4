@@ -7,7 +7,7 @@ import Podium from "./Podium";
 export default function Dashboard({ src, random }) {
   const [user] = useContext(AuthContext).user;
   const [randomFlag, setRandomFlag, randomCall] = random;
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useContext(AuthContext).score;
   const [gameReady, setGameReady] = useState(false);
   const [, setDataModal] = useContext(AuthContext).dataModal;
   const [gameOver, setGameOver] = useState(false);
@@ -39,24 +39,6 @@ export default function Dashboard({ src, random }) {
         randomCall().then((res) => {
           setRandomFlag(res.data);
         });
-        setTimeout(async () => {
-          await setDataModal({
-            title: "Time's up",
-            content: `it's time to see your score : ${count} points`,
-            button: "Send my score to infinity and beyond!",
-            icon: (
-              <ExclamationIcon
-                className="h-6 w-6 text-green-600"
-                aria-hidden="true"
-              />
-            ),
-            callback: () => {
-              setGameOver(true);
-              sendScore();
-              setGameReady(false);
-            },
-          });
-        }, 5000);
       },
     });
   };
@@ -80,8 +62,37 @@ export default function Dashboard({ src, random }) {
   };
 
   useEffect(() => {
-    console.warn(count);
+    // eslint-disable-next-line no-restricted-syntax
+    console.log("count", count);
   }, [count]);
+
+  useEffect(() => {
+    if (gameReady) {
+      setTimeout(() => {
+        setGameOver(true);
+        setGameReady(false);
+      }, 2 * 6 * 1000);
+    }
+  }, [gameReady]);
+
+  useEffect(() => {
+    if (gameOver) {
+      setDataModal({
+        title: "Time's up",
+        content: `it's time to see your score : ${count} points`,
+        button: "Send my score to infinity and beyond!",
+        icon: (
+          <ExclamationIcon
+            className="h-6 w-6 text-green-600"
+            aria-hidden="true"
+          />
+        ),
+        callback: () => {
+          sendScore();
+        },
+      });
+    }
+  }, [gameOver, count]);
 
   return (
     <div className="min-h-full w-full ">
@@ -100,7 +111,7 @@ export default function Dashboard({ src, random }) {
           <div className="max-w-7xl mx-auto pb-12 px-4 sm:px-6 lg:px-8">
             <div className="relative">
               <img
-                className="absolute h-16 top-[40%] right-[2%]  md:h-28 md:right[6%] md:top-[44%] lg:h-36 lg:right-[3%] lg:top-[42%] xl:h-44 xl:right-[5%] xl:top-[44%]  border-4  "
+                className="absolute h-16 top-[40%] right-[2%]  md:h-28 md:right[6%] md:top-[44%] lg:h-36 lg:right-[3%] lg:top-[42%] xl:h-44 xl:right-[6%] xl:top-[44%]  border-4  "
                 src={randomFlag?.url}
                 alt="backgroundImage"
               />
@@ -136,7 +147,7 @@ export default function Dashboard({ src, random }) {
           </button>
         </div>
       )}
-      {gameOver && <Podium nomDuneProps={count} />}
+      {gameOver && <Podium />}
     </div>
   );
 }

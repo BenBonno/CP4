@@ -8,6 +8,7 @@ import Navbar from "./Components/Navbar";
 import Modal from "./Components/Modal";
 
 function App() {
+  const [score, setScore] = useState(0);
   const [user, setUser] = useState(false);
   const [userReady, setUserReady] = useState(false);
   const [dataModal, setDataModal] = useState({
@@ -22,6 +23,7 @@ function App() {
         user: [user, setUser],
         userReady: [userReady, setUserReady],
         dataModal: [dataModal, setDataModal],
+        score: [score, setScore],
       }}
     >
       <div className="App">
